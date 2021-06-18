@@ -4,14 +4,18 @@ const GRAVITY = 2700
 const SPEED = 300
 var velocity = Vector2()
 export var attack_damage = 5
+var onak = 0
+onready var delaytimer = get_node("Timer")
 
 func run():
-	if(is_on_wall() or is_on_floor()):
+	if(is_on_wall() or is_on_floor() and onak == 0):
 		$AnimationPlayer.play("run")
 
 func idle():
-	if(is_on_wall() or is_on_floor() ) :
-		$AnimationPlayer.play("idle")
+	if((is_on_wall() or is_on_floor()) and onak == 0):
+		if ($AnimationPlayer.current_animation != "idle"):
+			$AnimationPlayer.play("idle")
+
 
 func jump():
 	if(!is_on_wall() or !is_on_floor()):
@@ -37,8 +41,12 @@ func get_input():
 	else: 
 		$Sprite.set_flip_h(bool(1 - direction))
 		run()
-	if Input.is_action_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept"):
+		attack()
 		$AnimationPlayer.play("attack")
+		delaytimer.one_shot = true;
+		delaytimer.wait_time = 0.4;
+		delaytimer.start()
 		# Turn RayCast2D toward movement direction
 		#if directray.x != direction :
 		#	directray.x = direction
@@ -57,28 +65,28 @@ func _physics_process(delta):
 	velocity.y += GRAVITY * delta
 	get_input()
 	velocity = move_and_slide(velocity)
-	attack()
+	
 
 
 func attack():
 	var collider
-	if Input.is_action_just_pressed("ui_accept"):
-		collider = $RayCast2D.get_collider()
-		if collider is KinematicBody2D:
-			var i = $RayCast2D.get_collider_shape()
-			var body = collider.shape_owner_get_owner(i)
-			body.get_parent().attacked(attack_damage)
-			#print(body.get_parent().health)
-			$AnimationPlayer.play("attack")
-			
-	if Input.is_action_pressed("ui_accept"):
-		collider = $RayCast2D2.get_collider()
-		if collider is KinematicBody2D:
-			var i = $RayCast2D2.get_collider_shape()
-			var body = collider.shape_owner_get_owner(i)
-			body.get_parent().attacked(attack_damage)
-			#print(body.get_parent().health)
-			$AnimationPlayer.play("attack")
+	
+	collider = $RayCast2D.get_collider()
+	if collider is KinematicBody2D:
+		var i = $RayCast2D.get_collider_shape()
+		var body = collider.shape_owner_get_owner(i)
+		body.get_parent().attacked(attack_damage)
+		#print(body.get_parent().health)
+		$AnimationPlayer.play("attack")
+	
+	collider = $RayCast2D2.get_collider()
+	if collider is KinematicBody2D:
+		var i = $RayCast2D2.get_collider_shape()
+		var body = collider.shape_owner_get_owner(i)
+		body.get_parent().attacked(attack_damage)
+		#print(body.get_parent().health)
+		$AnimationPlayer.play("attack")
+	onak = 1;
 
 
 # damage-reciver
@@ -109,3 +117,7 @@ func _ready():
 	pass
 
 
+
+func _on_Timer_timeout():
+	onak = 0;
+	pass # Replace with function body.
