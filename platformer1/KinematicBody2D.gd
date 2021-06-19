@@ -4,26 +4,34 @@ const GRAVITY = 2700
 const SPEED = 300
 var velocity = Vector2()
 export var attack_damage = 5
-var onak = 0
+
+
+var onattack = false
+var canjump = true
 onready var delaytimer = get_node("Timer")
 
+
 func run():
-	if(is_on_wall() or is_on_floor() and onak == 0):
+	if(is_on_wall() or is_on_floor() and !onattack):
 		$AnimationPlayer.play("run")
 
 func idle():
-	if((is_on_wall() or is_on_floor()) and onak == 0):
+	if((is_on_wall() or is_on_floor()) and !onattack):
 		if ($AnimationPlayer.current_animation != "idle"):
 			$AnimationPlayer.play("idle")
 
 
 func jump():
-	if(!is_on_wall() or !is_on_floor()):
+	if((is_on_wall() or is_on_floor()) and canjump):
 		$AnimationPlayer.play("jump")
+		canjump = false;
+		delaytimer.one_shot = true;
+		delaytimer.wait_time = 0.5;
+		delaytimer.start()
 
 
 func get_input():
-	var directray = Vector2()
+	#var directray = Vector2()
 	# run left & right
 	var direction = 0
 	if Input.is_action_pressed("ui_left"):
@@ -55,10 +63,10 @@ func get_input():
 	velocity.x = direction * SPEED
 	
 	# jump
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("ui_up") and canjump:
 		jump()
 		if is_on_wall():
-			velocity.y -= GRAVITY / 3
+			velocity.y -= float(GRAVITY / 3)
 		
 
 func _physics_process(delta):
@@ -86,7 +94,7 @@ func attack():
 		body.get_parent().attacked(attack_damage)
 		#print(body.get_parent().health)
 		$AnimationPlayer.play("attack")
-	onak = 1;
+	onattack = true;
 
 
 # damage-reciver
@@ -119,5 +127,6 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	onak = 0;
-	pass # Replace with function body.
+	onattack = false
+	canjump = true
+	pass
