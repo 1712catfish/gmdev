@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 #only for moving:
 var POSITION = 1
+var canAttack = 1
+onready var DelayTimer = get_node("Timer")
 var movement = Vector2()
 const SPEED = 50
 const GRAVITY = 2700
@@ -41,16 +43,30 @@ func _ready():
 
 
 
-export var attack_damage = 1
+export var attack_damage = 10
 func attack():
 	var collider
-	
 	collider = $RayCast2D3.get_collider()
-	if collider is KinematicBody2D:
+	if (collider is KinematicBody2D and canAttack == 1):
 		var i = $RayCast2D3.get_collider_shape()
 		var body = collider.shape_owner_get_owner(i)
 		body.get_parent().attacked(attack_damage)
 		print(body.get_parent().health)
+		canAttack = 0
+		DelayTimer.one_shot = true;
+		DelayTimer.wait_time = 2;
+		DelayTimer.start()
+		
+	collider = $RayCast2D2.get_collider()
+	if (collider is KinematicBody2D and canAttack == 1):
+		var i = $RayCast2D2.get_collider_shape()
+		var body = collider.shape_owner_get_owner(i)
+		body.get_parent().attacked(attack_damage)
+		print(body.get_parent().health)
+		canAttack = 0
+		DelayTimer.one_shot = true;
+		DelayTimer.wait_time = 2;
+		DelayTimer.start()
 
 
 
@@ -79,3 +95,8 @@ func _physics_process(delta):
 		$RayCast2D3.enabled = 0
 	attack()
 
+
+
+func _on_Timer_timeout():
+	canAttack = 1
+	pass # Replace with function body.
