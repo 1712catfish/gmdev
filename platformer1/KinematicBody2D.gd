@@ -34,12 +34,12 @@ func get_input():
 	#var directray = Vector2()
 	# run left & right
 	var direction = 0
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("ui_left") and !onattack:
 		direction = -1
 		$RayCast2D.enabled = false
 		$RayCast2D2.enabled = true
 
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") and !onattack:
 		direction = 1
 		$RayCast2D2.enabled = false
 		$RayCast2D.enabled = true
