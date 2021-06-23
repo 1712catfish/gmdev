@@ -8,6 +8,8 @@ export var attack_damage = 5
 
 var onattack = false
 var canjump = true
+var iskilled = false
+var isHit = false
 onready var delaytimer = get_node("Timer")
 
 
@@ -31,42 +33,42 @@ func jump():
 
 
 func get_input():
-	#var directray = Vector2()
-	# run left & right
-	var direction = 0
-	if Input.is_action_pressed("ui_left") and !onattack:
-		direction = -1
-		$RayCast2D.enabled = false
-		$RayCast2D2.enabled = true
+	if !iskilled and !isHit:	
+		# run left & right
+		var direction = 0
+		if Input.is_action_pressed("ui_left") and !onattack:
+			direction = -1
+			$RayCast2D.enabled = false
+			$RayCast2D2.enabled = true
 
-	if Input.is_action_pressed("ui_right") and !onattack:
-		direction = 1
-		$RayCast2D2.enabled = false
-		$RayCast2D.enabled = true
-	
-	if direction == 0: 
-		idle()
-	else: 
-		$Sprite.set_flip_h(bool(1 - direction))
-		run()
-	if Input.is_action_just_pressed("ui_accept"):
-		attack()
-		$AnimationPlayer.play("attack")
-		delaytimer.one_shot = true;
-		delaytimer.wait_time = 0.4;
-		delaytimer.start()
-		# Turn RayCast2D toward movement direction
-		#if directray.x != direction :
-		#	directray.x = direction
-		#	$RayCast2D.cast_to = directray.normalized() * 50
+		if Input.is_action_pressed("ui_right") and !onattack:
+			direction = 1
+			$RayCast2D2.enabled = false
+			$RayCast2D.enabled = true
 		
-	velocity.x = direction * SPEED
-	
-	# jump
-	if Input.is_action_just_pressed("ui_up") and canjump:
-		jump()
-		if is_on_wall():
-			velocity.y -= float(GRAVITY / 3)
+		if direction == 0: 
+			idle()
+		else: 
+			$Sprite.set_flip_h(bool(1 - direction))
+			run()
+		if Input.is_action_just_pressed("ui_accept"):
+			attack()
+			$AnimationPlayer.play("attack")
+			delaytimer.one_shot = true;
+			delaytimer.wait_time = 0.4;
+			delaytimer.start()
+			# Turn RayCast2D toward movement direction
+			#if directray.x != direction :
+			#	directray.x = direction
+			#	$RayCast2D.cast_to = directray.normalized() * 50
+			
+		velocity.x = direction * SPEED
+		
+		# jump
+		if Input.is_action_just_pressed("ui_up") and canjump:
+			jump()
+			if is_on_wall():
+				velocity.y -= float(GRAVITY / 3)
 		
 
 func _physics_process(delta):
@@ -103,15 +105,26 @@ onready var health = max_health setget _set_health
 var first_time = true
 
 func killed():
-	$Sprite.visible = false
+	$AnimationPlayer.play("killed")
+	iskilled = true
+	delaytimer.one_shot = true;
+	delaytimer.wait_time = 0.6;
+	delaytimer.start()
 	$Healthbar.visible = false
-	$CollisionShape2D.disabled = true
+		#$Sprite.visible = false
+		#$CollisionShape2D.disabled = true
 func _set_health(value):
 	var prev_health = health
 	health = clamp(value, 0, max_health)
 	$Healthbar.value = health
 	if health == 0:
 		killed()
+	else: 
+		$AnimationPlayer.play("hit")
+		isHit = true
+		delaytimer.one_shot = true;
+		delaytimer.wait_time = 0.3;
+		delaytimer.start()
 	if health != prev_health:
 		pass
 	return health
@@ -129,4 +142,6 @@ func _ready():
 func _on_Timer_timeout():
 	onattack = false
 	canjump = true
+	isHit = false
+	if health == 0: get_tree().quit()
 	pass
