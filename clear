@@ -1,0 +1,110 @@
+[33mcommit 38d7b5452a516b5bfcf0e6ccb586ab55a9a57610[m[33m ([m[1;36mHEAD -> [m[1;32m1[m[33m, [m[1;31morigin/1[m[33m)[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Wed Jun 23 12:49:45 2021 +0700
+
+    update animation (error attack)- hit and killed+auto-end-console
+
+[33mcommit 046ab17934b2a28e1a7011675534971361848299[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Sat Jun 19 15:43:21 2021 +0700
+
+    remove others in 1's branch
+
+[33mcommit 26c2b5e04a4e97791ce17e9ec790b3ef8efaf1a9[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Sat Jun 19 15:32:54 2021 +0700
+
+    new update of tilemap and movement
+
+[33mcommit 1f3fe608921f509ae37db9699271d9ee065844b8[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Sat Jun 19 12:04:50 2021 +0700
+
+    test remove hello.txt
+
+[33mcommit 78888803e37b1417aa086a3ea0488cac7f890517[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Sat Jun 19 11:35:50 2021 +0700
+
+    fix movement and jump duration
+
+[33mcommit c8034b22e5147089bc2fb71a9061380af9ed4f42[m
+Merge: c07ca84 6255278
+Author: Minh Lê Hoàng <12A5.18.hoangminh@luongthevinhhcm.onmicrosoft.com>
+Date:   Sat Jun 19 11:20:57 2021 +0700
+
+    Merge branch 'main' of https://github.com/1712catfish/gmdev
+
+[33mcommit c07ca844457ad5dad2ae2b3b49bc0a7af7c1fe6f[m
+Author: Minh Lê Hoàng <12A5.18.hoangminh@luongthevinhhcm.onmicrosoft.com>
+Date:   Sat Jun 19 11:14:10 2021 +0700
+
+    adding
+
+[33mcommit 6255278940775aa7d552b123124956826cf975dd[m
+Merge: e242b82 fe14a56
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Fri Jun 18 12:48:27 2021 +0700
+
+    Merge branch 'main' of https://github.com/1712catfish/gmdev
+
+[33mcommit e242b8285ec9d8c8fdb2a927b599120dd001a8ef[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Fri Jun 18 12:46:11 2021 +0700
+
+    fix attack and idle using timer
+
+[33mcommit fe14a567428a5b3dd96039df0b9e6a9ead52e053[m
+Author: Minh Lê Hoàng <12A5.18.hoangminh@luongthevinhhcm.onmicrosoft.com>
+Date:   Thu Jun 17 15:22:33 2021 +0700
+
+    ok mine
+
+[33mcommit 8a56450e9ea69297f3699cf5597fb02d81ee86b5[m
+Merge: efee701 7d522aa
+Author: tan-kun <1712huynhtan@gmail.com>
+Date:   Thu Jun 17 15:18:39 2021 +0700
+
+    Merge branch 'main' of https://github.com/1712catfish/gmdev
+
+[33mcommit efee701c96fb1ffdd86376cf826be833668e8d42[m
+Author: tan-kun <1712huynhtan@gmail.com>
+Date:   Thu Jun 17 15:18:26 2021 +0700
+
+    hello.txt
+
+[33mcommit 7d522aae70681f803e6037b5ddbf766803c3432b[m
+Author: Minh Lê Hoàng <12A5.18.hoangminh@luongthevinhhcm.onmicrosoft.com>
+Date:   Thu Jun 17 15:17:32 2021 +0700
+
+    add ok
+
+[33mcommit c29e31cfb55f1e3841b7774b669bfb9b575fc262[m
+Author: tan-kun <1712huynhtan@gmail.com>
+Date:   Thu Jun 17 15:04:23 2021 +0700
+
+    clean up
+
+[33mcommit 21bd5ac3d9a56c00b186b766f361c1fd07260c4e[m
+Author: tan-kun <1712huynhtan@gmail.com>
+Date:   Wed Jun 16 18:03:08 2021 +0700
+
+    add hello.txt
+
+[33mcommit 445dde5f9c51bf0d066b16b2d97cb65a3a12b304[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Wed Jun 16 18:00:14 2021 +0700
+
+    test commit file
+
+[33mcommit 8d5becd900c35370fd7c87740bf8d7a23081fb05[m
+Author: Hoang Cao Quoc Thang <thang.hoang7020202@hcmut.edu.vn>
+Date:   Wed Jun 16 17:55:29 2021 +0700
+
+    blank
+
+[33mcommit ebddf4700ec7b9d8e10123dd5c057b8aca7e19fe[m
+Author: 1712catfish <85150591+1712catfish@users.noreply.github.com>
+Date:   Wed Jun 16 17:36:50 2021 +0700
+
+    Initial commit

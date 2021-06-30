@@ -46,17 +46,6 @@ func _ready():
 export var attack_damage = 10
 func attack():
 	var collider
-	collider = $RayCast2D3.get_collider()
-	if (collider is KinematicBody2D and canAttack == 1):
-		var i = $RayCast2D3.get_collider_shape()
-		var body = collider.shape_owner_get_owner(i)
-		body.get_parent().attacked(attack_damage)
-		print(body.get_parent().health)
-		canAttack = 0
-		DelayTimer.one_shot = true;
-		DelayTimer.wait_time = 2;
-		DelayTimer.start()
-		
 	collider = $RayCast2D2.get_collider()
 	if (collider is KinematicBody2D and canAttack == 1):
 		var i = $RayCast2D2.get_collider_shape()
@@ -67,6 +56,7 @@ func attack():
 		DelayTimer.one_shot = true;
 		DelayTimer.wait_time = 2;
 		DelayTimer.start()
+
 
 
 
@@ -88,11 +78,9 @@ func _physics_process(delta):
 		
 		
 	if(POSITION == -1): 
-		$RayCast2D2.enabled = 0
-		$RayCast2D3.enabled = 1 
+		$RayCast2D2.cast_to = Vector2(-60,0)
 	else:
-		$RayCast2D2.enabled = 1
-		$RayCast2D3.enabled = 0
+		$RayCast2D2.cast_to = Vector2(60,0)
 	attack()
 
 

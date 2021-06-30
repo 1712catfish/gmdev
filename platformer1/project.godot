@@ -19,6 +19,10 @@ config/name="Moon River"
 run/main_scene="res://Chapter1.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 ui_left={
