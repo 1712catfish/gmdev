@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name player
 
 const GRAVITY = 2700
 const SPEED = 300
@@ -13,6 +14,10 @@ var iskilled = false
 var isHit = false
 onready var delaytimer = get_node("Timer") #control count down time
 
+export ( float ) var max_health = 100
+onready var health = max_health setget _set_health
+var first_time = true
+
 func run():
 	if(is_on_wall() or is_on_floor() and !onattack and !iskilled):
 		$AnimationPlayer.play("run")
@@ -26,9 +31,7 @@ func jump():
 	if((is_on_wall() or is_on_floor()) and canjump and !iskilled):
 		$AnimationPlayer.play("jump")
 		canjump = false;
-		delaytimer.one_shot = true;
-		delaytimer.wait_time = 0.5;
-		delaytimer.start()
+		countDown(0.5)
 
 func fire():
 	var shot = fireball.instance()
@@ -39,7 +42,6 @@ func fire():
 		shot.rotation_degrees = 180
 	else:
 		shot.rotation_degrees = 0
-	
 	pass
 
 func get_input():
@@ -59,26 +61,15 @@ func get_input():
 	else: 
 		$Sprite.set_flip_h(bool(1 - direction))
 		run()
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept") and !onattack:
 		attack()
-		$AnimationPlayer.play("attack")
-		#if(Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right")):
-		fire()
-		delaytimer.one_shot = true;
-		delaytimer.wait_time = 0.4;
-		delaytimer.start()
-		# Turn RayCast2D toward movement direction
-		#if directray.x != direction :
-		#	directray.x = direction
-		#	$RayCast2D.cast_to = directray.normalized() * 50
-		
+		countDown(0.4)
 	velocity.x = direction * SPEED
-	
 	# jump
 	if Input.is_action_just_pressed("ui_up") and canjump:
 		jump()
 		if is_on_wall():
-			velocity.y -= float(GRAVITY / 3)
+			velocity.y -= int(GRAVITY / 2.5)
 
 func _physics_process(delta):
 	velocity.y += GRAVITY * delta
@@ -86,8 +77,9 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity)
 
 func attack():
+	fire()
 	var collider = 0
-	#fire()
+	$AnimationPlayer.play("attack")
 	collider = $RayCast2D.get_collider()
 	if collider is KinematicBody2D:
 		var i = $RayCast2D.get_collider_shape()
@@ -97,17 +89,10 @@ func attack():
 		$AnimationPlayer.play("attack")
 	onattack = true;
 
-# damage-reciver
-export ( float ) var max_health = 100
-onready var health = max_health setget _set_health
-var first_time = true
-
 func killed():
 	$AnimationPlayer.play("killed")
 	iskilled = true
-	delaytimer.one_shot = true;
-	delaytimer.wait_time = 0.6;
-	delaytimer.start()
+	countDown(0.6)
 	$Healthbar.visible = false
 
 func _set_health(value):
@@ -134,6 +119,12 @@ func _ready():
 		$Healthbar.max_value = max_health
 		$Healthbar.value = max_health
 		first_time = false
+	pass
+
+func countDown(a):
+	delaytimer.one_shot = true;
+	delaytimer.wait_time = a;
+	delaytimer.start()
 	pass
 
 func _on_Timer_timeout():

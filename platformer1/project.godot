@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "enemy",
+"language": "GDScript",
+"path": "res://enemy(kinematic2d).gd"
+}, {
+"base": "KinematicBody2D",
+"class": "player",
+"language": "GDScript",
+"path": "res://KinematicBody2D.gd"
+} ]
 _global_script_class_icons={
-
+"enemy": "",
+"player": ""
 }
 
 [application]

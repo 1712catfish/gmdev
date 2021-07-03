@@ -3,7 +3,6 @@
 [resource]
 resource_name = "attack"
 length = 0.5
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
