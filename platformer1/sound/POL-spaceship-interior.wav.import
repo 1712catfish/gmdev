@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/POL-spaceship-interior.wav-8a1f8358ce175eff91b8743b5cbc018a.sample"
+
+[deps]
+
+source_file="res://sound/POL-spaceship-interior.wav"
+dest_files=[ "res://.import/POL-spaceship-interior.wav-8a1f8358ce175eff91b8743b5cbc018a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

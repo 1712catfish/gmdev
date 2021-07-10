@@ -59,6 +59,7 @@ func attack():
 	collider = $RayCast2D2.get_collider()
 	if (collider is KinematicBody2D and canAttack == 1):
 		fire()
+		$AudioStreamPlayer2D.play()
 		canAttack = 0
 		countDown(1)
 
@@ -92,4 +93,5 @@ func _physics_process(delta):
 
 func _on_Timer_timeout():
 	canAttack = 1
+	$AudioStreamPlayer2D.play()
 	pass # Replace with function body.

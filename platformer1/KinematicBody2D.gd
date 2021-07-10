@@ -78,6 +78,9 @@ func _physics_process(delta):
 
 func attack():
 	fire()
+	if($AudioStreamPlayer2D.playing == false):
+		
+		$AudioStreamPlayer2D.play() 
 	var collider = 0
 	$AnimationPlayer.play("attack")
 	collider = $RayCast2D.get_collider()
@@ -131,5 +134,6 @@ func _on_Timer_timeout():
 	onattack = false
 	canjump = true
 	isHit = false
+	$AudioStreamPlayer2D.stop()
 	if health == 0: get_tree().quit()
 	pass
