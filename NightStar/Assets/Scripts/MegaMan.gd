@@ -82,10 +82,11 @@ func Update():
 			InvokeAttackComplete(0.2)
 
 func Get_input():	
-	isLeftPressed = Input.is_key_pressed(KEY_LEFT)
-	isRightPressed = Input.is_key_pressed(KEY_RIGHT)
-	isJumpPressed = Input.is_key_pressed(KEY_UP)
-	isAttackPressed = Input.is_key_pressed(KEY_SPACE)
+	isLeftPressed = Input.is_action_pressed("ui_left")
+	isRightPressed = Input.is_action_pressed("ui_right")
+
+	isJumpPressed = Input.is_action_just_pressed("ui_up")
+	isAttackPressed = Input.is_action_pressed("ui_end")
 
 func ChangeAnimationState(newAnimation):
 	if currentAnimation == newAnimation:
