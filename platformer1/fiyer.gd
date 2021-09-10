@@ -1,5 +1,4 @@
 extends KinematicBody2D
-class_name enemy
 
 #only for moving:
 var POSITION = 1
@@ -7,10 +6,7 @@ var canAttack = 1
 onready var DelayTimer = get_node("Timer")
 const fireball = preload("enemyFire.tscn")
 
-var movement = Vector2()
-const SPEED = 50
-const GRAVITY = 2700
-const  FLOOR = Vector2(0,-1)
+
 export var attack_damage = 10
 
 
@@ -75,32 +71,7 @@ func _physics_process(delta):
 	#var space_rid = get_world_2d().space
 	#var space_state = Physics2DServer.space_get_direct_state(space_rid)
 	if health == 0: return
-	$AnimationPlayer.play("idle")
-	movement.x = SPEED * POSITION
-	movement.y += GRAVITY * delta
-	movement = move_and_slide(movement,FLOOR)
-	
-	if is_on_wall():
-		POSITION *= -1 
-		$RayCast2D.position.x *= -1
-		
-	
-	if $RayCast2D.is_colliding() == false: 
-		POSITION *= -1
-		$RayCast2D.position.x *= -1
-		
-		
-		
-	if(POSITION == -1): 
-		$RayCast2D2.cast_to = Vector2(-400,0)
-		get_node("RayCast2D2/Sprite").rotation_degrees = 180;
-		get_node("RayCast2D2/Sprite").position = Vector2(-170,0);
-		
-	else:
-		$RayCast2D2.cast_to = Vector2(400,0)
-		get_node("RayCast2D2/Sprite").rotation_degrees = 0;
-		get_node("RayCast2D2/Sprite").position = Vector2(144,0);
-		
+	$AnimationPlayer.play("Aiming-bot")
 	attack()
 
 func _on_Timer_timeout():
